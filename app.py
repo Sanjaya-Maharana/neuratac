@@ -1,40 +1,27 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate, migrate
+from flask_bcrypt import Bcrypt
+
+
 
 app = Flask(__name__)
+app.debug = True
 
-database={'sanjay':'123','ram':'532312'}
 
 @app.route("/")
-def template():
-    return render_template('template.html')
+def home():
+    return render_template('home.html')
+@app.route("/resume")
+def resume():
+    return render_template('resume.html')
+@app.route("/freelence")
+def freelence():
+    return render_template('freelence.html')
 
-
-@app.route("/login")
-def login():
-    return render_template('login.html')
-
-@app.route("/submit",methods=['POST','GET'])
-def login_val():
-    name1 = request.form['username']
-    psw = request.form['password']
-    if name1 not in database:
-        return render_template(login.html,info='Invalid User')
-    else:
-        if name1 not in database:
-            return render_template('login.html',info="Invalid Password")
-        else:
-            return render_template('home.html',name=name1)
-
-
-@app.route("/register")
-def signup():
-    return render_template('register.html')
-@app.route("/forgot")
-def forgot():
-    return render_template('forgot.html') 
-@app.route("/terms")
-def terms():
-    return render_template('terms.html')
+@app.route("/contact_us")
+def contact_us():
+    return render_template('contact_us.html')
 
 if __name__ == '__main__':
     app.run(port=8000)
