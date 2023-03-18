@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'SanjayaMaharana'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_082AC87A56124D869DF93EAFC9953663 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_556EFDCB33B94ED1BE3DC0F9085867D6 }}
