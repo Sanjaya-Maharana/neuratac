@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Neuratac</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(200, 200, 200); /* Light grey background color */
+            margin: 0; /* Reset the margin for the body */
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            cursor: pointer;
+            background-color: rgb(100, 148, 215); /* Light blue background color for the header */
+            color: black; /* Text color for the navigation bar */
+        }
+
+        .background {
+            background: rgb(25, 25, 160);
+            background-blend-mode: darken;
+            background-size: cover;
+        }
+
+        .nav-list {
+            width: 70%;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 70px;
+            width: 100px;
+            border-radius: 20px;
+        }
+
+        .nav-list li {
+            list-style: none;
+            padding: 26px 30px;
+        }
+
+        .nav-list li a {
+            text-decoration: none;
+            color: black;
+            font-size: 22px; /* Increase font size for navigation links */
+        }
+
+        .nav-list li a:hover {
+            color: grey;
+        }
+
+        .rightnav {
+            width: 30%;
+            text-align: right;
+        }
+
+        .firstsection {
+            background-color: rgb(235, 235, 235); /* Light grey background for first section */
+            height: 515px;
+        }
+
+        .section-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Divide the sections into two columns */
+            gap: 10px; /* Add some gap between sections */
+            margin-top: 20px; /* Add some margin between the sections and the header */
+        }
+
+        .section {
+            background-color: rgb(235, 235, 235); /* Light grey background for sections */
+            height: 355px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            font-size: 22px;
+        }
+
+        .text-footer {
+            text-align: center;
+            padding: 30px 0;
+            font-family: 'Ubuntu', sans-serif;
+            display: flex;
+            justify-content: center;
+            color: black;
+            font-size: 22px; /* Increase font size for footer text */
+            background-color: rgb(100, 148, 215); /* Light blue background color for the footer */
+            grid-column: 1 / -1; /* Span the footer across both columns */
+        }
+    </style>
+</head><h2>Mail : SanjayaMaharana145@gmail.com  <h></h> Contact No :8790654369 </h2>
+
+<body>
+    <nav class="navbar">
+        <ul class="nav-list">
+            <div class="logo">
+                <img src="{{url_for('static', filename='builtin/SSM_logo.jpg')}}" align="middle" />
+            </div>
+            <li><a href="/">Home</a></li>
+            <li><a href="resume">Products</a></li>
+            <li><a href="freelance">Services</a></li>
+            <li><a href="freelance">About</a></li>
+            <li><a href="contact_us">Contact Us</a></li>
+        </ul>
+    </nav>
+
+
+    <section class="firstsection">
+        <div class="box-main">
+            <h2>Welcome to My Page</h2>
+        </div>
+    </section>
+
+    <div class="section-container">
+        <div class="section">
+            <h2>Section 1</h2>
+        </div>
+
+        <div class="section">
+            <h2>Section 2</h2>
+        </div>
+
+        <div class="section">
+            <h2>Section 3</h2>
+        </div>
+
+        <div class="section">
+            <h2>Section 4</h2>
+        </div>
+    </div>
+
+    <footer class="text-footer">
+        <p>
+            Copyright ©-All rights are reserved by Neuratac
+        </p>
+    </footer>
+</body>
+
+</html>
