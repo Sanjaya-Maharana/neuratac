@@ -97,9 +97,10 @@
           <div class="m-12 l-7 center">
             <!-- Contact Form -->
             <div class="s-12 padding-2x background-white text-center">                  
-              <form action="#" method="post" class="contact-form">
-                <input type="text" name="name" placeholder="Your Name" class="input border-radius margin-bottom-20">
-                <input type="email" name="email" placeholder="Your Email" class="input border-radius margin-bottom-20">
+              <form action="{{ url_for('send_message') }}" method="post" class="contact-form">
+                <input type="text" name="name" placeholder="Your Name" class="input border-radius margin-bottom-20" required>
+                <input type="email" name="email" placeholder="Your Email" class="input border-radius margin-bottom-20" required>
+                  <input type="number" name="phno" placeholder="Phone Number" class="input border-radius margin-bottom-20" required>
                 <textarea name="message" placeholder="Your Message" class="textarea border-radius margin-bottom-20"></textarea>
                 <button type="submit" class="button text-size-15 background-primary border-radius">Send Message</button>
               </form>
