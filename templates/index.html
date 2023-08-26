@@ -20,7 +20,7 @@
   <header class="grid">
     <nav class="s-12 grid background-none background-primary-hightlight">
       <a href="index.html" class="m-12 l-3 padding-2x logo">
-        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Neuratac Logo">
+        <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Neuratac Logo">
       </a>
       <div class="top-nav s-12 l-9">
         <ul class="top-ul right chevron">
@@ -130,7 +130,8 @@
         <h3 class="text-strong text-size-25 text-uppercase margin-bottom-10">Let's Connect</h3>
         <p>Join us in shaping the future of AI-driven innovation.</p>
         <form action="{{ url_for('subscribe') }}" method="post">
-          <input type="email" name="email" class="email input border-radius margin-bottom-20" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" placeholder="Your Email">
+          {{message}}
+          <input type="email" name="email" class="email input border-radius margin-bottom-20" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" placeholder="Your Email ">
           <button type="submit" class="button text-size-15 background-primary border-radius" style="padding: 10px 20px; background-color: #EF6C00; color: white; border: none; border-radius: 5px;">Subscribe</button>
         </form>
       </div>

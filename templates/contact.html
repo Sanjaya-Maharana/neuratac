@@ -96,13 +96,16 @@
         <section class="grid margin-bottom-20">
           <div class="m-12 l-7 center">
             <!-- Contact Form -->
-            <div class="s-12 padding-2x background-white text-center">                  
+            <div class="s-12 padding-2x background-white text-center">
+                <h2>{{message}}</h2>
               <form action="{{ url_for('send_message') }}" method="post" class="contact-form">
+                  {{message}}
                 <input type="text" name="name" placeholder="Your Name" class="input border-radius margin-bottom-20" required>
                 <input type="email" name="email" placeholder="Your Email" class="input border-radius margin-bottom-20" required>
                   <input type="number" name="phno" placeholder="Phone Number" class="input border-radius margin-bottom-20" required>
                 <textarea name="message" placeholder="Your Message" class="textarea border-radius margin-bottom-20"></textarea>
                 <button type="submit" class="button text-size-15 background-primary border-radius">Send Message</button>
+
               </form>
             </div>
             <iframe class="s-12 center" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d384389.53096508795!2d83.2184813168783!3d17.686815589608776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a397679e0fbef4b%3A0xe2fc9a2f75d3b049!2sVisakhapatnam%2C%20Andhra%20Pradesh!5e0!3m2!1sen!2sin!4v1629982410790!5m2!1sen!2sin" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
@@ -134,6 +137,7 @@
           <p><b class="text-primary margin-right-10">Phone:</b> +91 8790654369</p>
           <p><b class="text-primary margin-right-10">Email:</b> <a class="text-primary-hover" href="mailto:contact@neuratac.com">contact@neuratac.com</a></p>
           <p><b class="text-primary margin-right-10">Email (CEO):</b> <a class="text-primary-hover" href="mailto:ceo@neuratac.com">ceo@neuratac.com</a></p>
+
         </div>
         
         <!-- Footer - bottom -->
