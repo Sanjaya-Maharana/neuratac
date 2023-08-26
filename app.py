@@ -6,11 +6,23 @@ app.debug = True
 
 @app.route("/")
 def home():
-    return render_template('home.html')
+    return render_template('index.html')
 
-@app.route("/contact_us")
-def contact_us():
-    return render_template('contact_us.html')
+@app.route("/about-us")
+def about():
+    return render_template('about-us.html')
+@app.route("/services")
+def services():
+    return render_template('services.html')
+
+@app.route("/gallery")
+def gallery():
+    return render_template('gallery.html')
+
+
+@app.route("/contact")
+def contact():
+    return render_template('contact.html')
 
 if __name__ == '__main__':
     # Use the environment variable for the port if available, or fallback to 8000

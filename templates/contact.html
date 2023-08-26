@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en-US">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neuratac - Innovative AI Solutions</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/icons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/responsee.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.carousel.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.theme.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/template-style.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Barlow:100,300,400,700,800&amp;subset=latin-ext" rel="stylesheet">
+  <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+    <style>
+      /* Style for the contact form */
+      .contact-form {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+    
+      .input,
+      .textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+    
+      .textarea {
+        resize: vertical;
+      }
+    
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+    
+      .button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+    
+ </head>
+
+ <!--
+  You can change the color scheme of the page. Just change the class of the <body> tag. 
+  You can use this class: "primary-color-white", "primary-color-red", "primary-color-orange", "primary-color-blue", "primary-color-aqua", "primary-color-dark" 
+  -->
+  
+  <!--
+  Each element is able to have its own background or text color. Just change the class of the element.  
+  You can use this class: 
+  "background-white", "background-red", "background-orange", "background-blue", "background-aqua", "background-primary" 
+  "text-white", "text-red", "text-orange", "text-blue", "text-aqua", "text-primary"
+  -->
+
+ <body class="size-1520 primary-color-red background-dark">
+    <!-- HEADER -->
+    <header class="grid">
+      <!-- Top Navigation -->
+      <nav class="s-12 grid background-none background-primary-hightlight">
+      <a href="index.html" class="m-12 l-3 padding-2x logo">
+        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Neuratac Logo">
+      </a>
+      <div class="top-nav s-12 l-9">
+        <ul class="top-ul right chevron">
+          <li><a href="/">Home</a></li>
+          <li><a href="about-us">About Us</a></li>
+          <li><a href="services">Services</a></li>
+          <li><a href="gallery">Gallery</a></li>
+          <li><a href="contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    </header>
+      
+      <!-- MAIN -->
+      <main role="main">
+        <!-- TOP SECTION -->
+        <header class="grid">
+        	<div class="s-12 padding-2x">
+            <h1 class="text-strong text-white text-center center text-size-60 text-uppercase margin-bottom-20">Contact Us</h1>
+          </div>
+        </header>
+        
+        <!-- SECTION 1 -->
+        <section class="grid margin-bottom-20">
+          <div class="m-12 l-7 center">
+            <!-- Contact Form -->
+            <div class="s-12 padding-2x background-white text-center">                  
+              <form action="#" method="post" class="contact-form">
+                <input type="text" name="name" placeholder="Your Name" class="input border-radius margin-bottom-20">
+                <input type="email" name="email" placeholder="Your Email" class="input border-radius margin-bottom-20">
+                <textarea name="message" placeholder="Your Message" class="textarea border-radius margin-bottom-20"></textarea>
+                <button type="submit" class="button text-size-15 background-primary border-radius">Send Message</button>
+              </form>
+            </div>
+            <iframe class="s-12 center" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d384389.53096508795!2d83.2184813168783!3d17.686815589608776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a397679e0fbef4b%3A0xe2fc9a2f75d3b049!2sVisakhapatnam%2C%20Andhra%20Pradesh!5e0!3m2!1sen!2sin!4v1629982410790!5m2!1sen!2sin" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+          </div>
+        </section>        
+      </main>
+      
+       
+      <!-- FOOTER -->
+      <footer class="grid">
+        <!-- Footer - top -->
+        <!-- Image-->
+        <div class="s-12 l-3 m-row-3 margin-bottom background-image" style="background-image:url({{ url_for('static', filename='img/img-04.jpg') }})"></div>
+        
+        <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+          <h2 class="text-strong text-uppercase">Who We Are?</h2>
+          <p>At Neuratac, we are a trailblazing team of innovators driven by a passion for transformative solutions. Our mission is to harness the power of artificial intelligence to reshape industries and redefine possibilities.</p>
+          <p>Discover the future of innovation with Neuratac as we continue to pave the way for technological advancement and unlock new horizons for businesses worldwide.</p>
+        </div>
+      
+        
+        <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+           <h2 class="text-strong text-uppercase">Where We Are?</h2>
+           <img class="full-img" src="{{ url_for('static', filename='img/map.svg') }}" alt=""/>
+        </div>
+        
+        <div class="s-12 m-9 l-3 padding-2x margin-bottom background-dark">
+          <h2 class="text-strong text-uppercase">Contact Neuratac</h2>
+          <p><b class="text-primary margin-right-10">Phone:</b> +91 8790654369</p>
+          <p><b class="text-primary margin-right-10">Email:</b> <a class="text-primary-hover" href="mailto:contact@neuratac.com">contact@neuratac.com</a></p>
+          <p><b class="text-primary margin-right-10">Email (CEO):</b> <a class="text-primary-hover" href="mailto:ceo@neuratac.com">ceo@neuratac.com</a></p>
+        </div>
+        
+        <!-- Footer - bottom -->
+        <div class="s-12 text-center margin-bottom">
+          <p class="text-size-12">Copyright 2023, Neuratac - Innovative Solutions</p>
+          <p class="text-size-12">All images are property of Neuratac. Do not use without permission.</p>
+          <p><a class="text-size-12 text-primary-hover" href="http://www.neuratac.com" title="Neuratac - Innovative Solutions">Designed and Developed by Neuratac Team</a></p>
+        </div>
+
+      </footer>      
+      <script type="text/javascript" src="js/responsee.js"></script>
+      <script type="text/javascript" src="owl-carousel/owl.carousel.js"></script>
+      <script type="text/javascript" src="js/template-scripts.js"></script>
+      
+   </body>
+</html>
