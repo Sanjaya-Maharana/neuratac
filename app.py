@@ -71,7 +71,8 @@ If you ever have any questions or feedback, please don't hesitate to reach out t
 
 Once again, thank you for subscribing. We look forward to sharing exciting content with you!
 
-Best regards,'''
+Best regards,
+Neuratac - Innovation AI Solution'''
     owner_email = 'SanjayaMaharana145@gmail.com'  # Change to your own email address
     subject = 'Thank you for subscribing to our newsletter'
 
