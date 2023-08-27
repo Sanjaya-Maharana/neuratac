@@ -82,6 +82,7 @@ Best regards,'''
     return render_template('index.html', message=message)
 
 
+
 @app.route('/send_message', methods=['POST'])
 def send_message():
     if request.method == 'POST':
