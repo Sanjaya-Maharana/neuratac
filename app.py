@@ -88,8 +88,9 @@ def subscribe():
         Once again, thank you for subscribing. We look forward to sharing exciting content with you!
 
         Best regards,
-        Neuratac - Innovation AI Solution'''
-        owner_email = 'SanjayaMaharana145@gmail.com'  # Change to your own email address
+        Neuratac - Innovation AI Solution
+        SanjayaMaharana145@gmail.com
+        '''
         subject = 'Thank you for subscribing to our newsletter'
 
         if send_email(receiver_email, subject, email_content):
