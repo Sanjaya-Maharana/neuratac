@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Neuratac - Innovative AI Solutions</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/icons.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/responsee.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.carousel.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='owl-carousel/owl.theme.css') }}">
@@ -13,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css?family=Barlow:100,300,400,700,800&amp;subset=latin-ext" rel="stylesheet">
   <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.3.min.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
 <body class="size-1520 primary-color-red background-dark">
@@ -40,18 +40,19 @@
     <section class="grid">
       <!-- Main Carousel -->
       <div class="s-12 margin-bottom carousel-fade-transition owl-carousel carousel-main carousel-nav-white carousel-hide-arrows background-dark">
-        <div class="item background-image" style="background-image:url({{ url_for('static', filename='img/carousel-01.jpg') }})">
-          <p class="text-padding text-strong text-white text-s-size-30 text-size-60 text-uppercase background-primary">Empowering AI Innovation</p>
+        <div class="item background-image" style="background-image: url({{ url_for('static', filename='img/carousel-01.jpg') }})">
+          <p class="text-padding text-strong text-white text-s-size-30 text-size-60 text-uppercase background-primary">Empowering AI Innovation</p><br>
           <p class="text-padding text-size-20 text-dark text-uppercase background-white">Unleash the potential of AI for smarter solutions and a better future.</p>
         </div>
         <div class="item background-image" style="background-image:url({{ url_for('static', filename='img/carousel-02.jpg') }})">
-          <p class="text-padding text-strong text-white text-s-size-30 text-size-60 text-uppercase background-primary">Inspired by Intelligent Algorithms</p>
+          <p class="text-padding text-strong text-white text-s-size-30 text-size-60 text-uppercase background-primary">Inspired by Intelligent Algorithms</p><br>
           <p class="text-padding text-size-20 text-dark text-uppercase background-white">Experience the power of machine learning and neural networks.</p>
         </div>
         <div class="item background-image" style="background-image:url({{ url_for('static', filename='img/carousel-03.jpg') }})">
-          <p class="text-padding text-strong text-white text-s-size-30 text-size-60 text-uppercase background-primary">Pioneering AI Solutions</p>
+          <p class="text-padding text-strong text-white text-s-size-30 text-size-60 text-uppercase background-primary">Pioneering AI Solutions</p><br>
           <p class="text-padding text-size-20 text-dark text-uppercase background-white">Transforming industries through AI-driven innovation.</p>
         </div>
+
       </div>
     </section>
 
@@ -127,25 +128,25 @@
     <!-- SECTION 5 -->
     <section class="grid margin text-center">
       <div class="m-12 l-4 padding-2x background-dark margin-bottom text-right">
-        <h3 class="text-strong text-size-25 text-uppercase margin-bottom-10">Let's Connect</h3>
-        <p>Join us in shaping the future of AI-driven innovation.</p>
+        <h3 class="text-strong text-size-25 text-uppercase margin-bottom-10" align="center">Let's Connect with Us</h3>
+        <p align="center">Join us in shaping the future of AI-driven innovation.</p>
+        <p align="center">{{message}}</p>
         <form action="{{ url_for('subscribe') }}" method="post">
-          {{message}}
           <input type="email" name="email" class="email input border-radius margin-bottom-20" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" placeholder="Your Email ">
           <button type="submit" class="button text-size-15 background-primary border-radius" style="padding: 10px 20px; background-color: #EF6C00; color: white; border: none; border-radius: 5px;">Subscribe</button>
         </form>
       </div>
+      <a href="https://www.linkedin.com/company/neuratac" class="s-12 m-6 l-2 padding vertical-center margin-bottom linkedin hover-zoom">
+      <i class="fab fa-linkedin text-size-60 text-white center"></i>
+      </a>
       <a href="/" class="s-12 m-6 l-2 padding vertical-center margin-bottom facebook hover-zoom">
-      <i class="icon-sli-social-facebook text-size-60 text-white center"></i>
+        <i class="fab fa-facebook text-size-60 text-white center"></i>
       </a>
       <a href="/" class="s-12 m-6 l-2 padding vertical-center margin-bottom twitter hover-zoom">
-      <i class="icon-sli-social-twitter text-size-60 text-white center"></i>
+      <i class="fab fa-twitter text-size-60 text-white center"></i>
       </a>
       <a href="/" class="s-12 m-6 l-2 padding vertical-center margin-bottom youtube hover-zoom">
-      <i class="icon-sli-social-youtube text-size-60 text-white center"></i>
-      </a>
-      <a href="/" class="s-12 m-6 l-2 padding vertical-center margin-bottom linkedin hover-zoom">
-      <i class="icon-sli-social-linkedin text-size-60 text-white center"></i>
+      <i class="fab fa-youtube text-size-60 text-white center"></i>
       </a>
 
     </section>

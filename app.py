@@ -1,17 +1,27 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 import os
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-
 app = Flask(__name__)
+app.config['STATIC_FOLDER'] = 'static'
 
 # Configure your email settings
 smtp_server = 'smtp.gmail.com'
 smtp_port = 587
 sender_email = 'apirequest2000@gmail.com'
 sender_password = 'rcfyvrzrugdlfmup'
+
+# Configure the SQLite database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///subscribers.db'
+db = SQLAlchemy(app)
+
+# Define a Subscriber model for the database
+class Subscriber(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
 
 def send_email(receiver_email, subject, message):
     msg = MIMEMultipart()
@@ -40,6 +50,7 @@ def home():
 @app.route("/about-us")
 def about():
     return render_template('about-us.html')
+
 @app.route("/services")
 def services():
     return render_template('services.html')
@@ -48,40 +59,54 @@ def services():
 def gallery():
     return render_template('gallery.html')
 
-
 @app.route("/contact")
 def contact():
     return render_template('contact.html')
 
-
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
     receiver_email = request.form.get('email')
-    email_content = '''Dear Subscriber,
 
-Thank you for subscribing to our newsletter! We are thrilled to have you as part of our community. You will now receive regular updates, news, and special offers delivered directly to your inbox.
+    # Check if the email is not already in the database
+    if not Subscriber.query.filter_by(email=receiver_email).first():
+        new_subscriber = Subscriber(email=receiver_email)
+        db.session.add(new_subscriber)
+        db.session.commit()
 
-Here's what you can expect from our newsletter:
+        email_content = '''Dear Subscriber,
 
-1. Latest Updates: Stay up-to-date with the latest news, trends, and developments in our industry.
-2. Exclusive Offers: Get access to exclusive discounts and promotions that are only available to our subscribers.
-3. Helpful Tips: Receive valuable tips, insights, and resources to help you make the most of our products/services.
+        Thank you for subscribing to our newsletter! We are thrilled to have you as part of our community. You will now receive regular updates, news, and special offers delivered directly to your inbox.
 
-If you ever have any questions or feedback, please don't hesitate to reach out to us. We value your input and are here to assist you.
+        Here's what you can expect from our newsletter:
 
-Once again, thank you for subscribing. We look forward to sharing exciting content with you!
+        1. Latest Updates: Stay up-to-date with the latest news, trends, and developments in our industry.
+        2. Exclusive Offers: Get access to exclusive discounts and promotions that are only available to our subscribers.
+        3. Helpful Tips: Receive valuable tips, insights, and resources to help you make the most of our products/services.
 
-Best regards,
-Neuratac - Innovation AI Solution'''
-    owner_email = 'SanjayaMaharana145@gmail.com'  # Change to your own email address
-    subject = 'Thank you for subscribing to our newsletter'
+        If you ever have any questions or feedback, please don't hesitate to reach out to us. We value your input and are here to assist you.
 
-    if send_email(receiver_email, subject, email_content):
-        message = "Subscribed successfully"
+        Once again, thank you for subscribing. We look forward to sharing exciting content with you!
+
+        Best regards,
+        Neuratac - Innovation AI Solution'''
+        owner_email = 'SanjayaMaharana145@gmail.com'  # Change to your own email address
+        subject = 'Thank you for subscribing to our newsletter'
+
+        if send_email(receiver_email, subject, email_content):
+            message = "Subscribed successfully"
+        else:
+            message = "Error sending Subscription"
     else:
-        message = "Error sending Subscription"
+        message = "Email already subscribed"
+
     return render_template('index.html', message=message)
 
+@app.route("/subscribers")
+def subscriber_list():
+    # Retrieve the list of subscribers from the database
+    subscribers = Subscriber.query.all()
+
+    return render_template('subscribers.html', subscribers=subscribers)
 
 
 @app.route('/send_message', methods=['POST'])
@@ -105,6 +130,10 @@ def send_message():
         return render_template('contact.html', message=message)
 
 if __name__ == '__main__':
+    with app.app_context():
+        # Create the database tables
+        db.create_all()
+
     # Use the environment variable for the port if available, or fallback to 8000
     port = int(os.environ.get("PORT", 8000))
     app.run(host='0.0.0.0', port=port)
