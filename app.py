@@ -132,14 +132,14 @@ def send_message():
         phno = request.form['phno']
         message = request.form['message']
 
-        # Get the visitor's IP address
-        visitor_ip = request.remote_addr
-
-        # Get the visitor's location based on the IP address using ipinfo.io
-        location_info = get_location_info(visitor_ip)
+        # # Get the visitor's IP address
+        # visitor_ip = request.remote_addr
+        #
+        # # Get the visitor's location based on the IP address using ipinfo.io
+        # location_info = get_location_info(visitor_ip)
 
         # Modify the email content as needed
-        email_content = f"Name: {name}\nEmail: {email}\nPhone Number: {phno}\nMessage: {message}\n\nVisitor IP: {visitor_ip}\nVisitor Location: {location_info}"
+        email_content = f"Name: {name}\nEmail: {email}\nPhone Number: {phno}\nMessage: {message}"
 
         receiver_email = 'SanjayaMaharana145@gmail.com'  # Change to your own email address
         subject = 'New Form Submission'
