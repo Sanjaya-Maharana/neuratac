@@ -4,6 +4,7 @@ import os
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import requests
 
 app = Flask(__name__)
 app.config['STATIC_FOLDER'] = 'static'
@@ -46,7 +47,8 @@ def get_location_info(ip):
     try:
         url = f"https://ipinfo.io/{ip}/json"
         response = requests.get(url)
-        data = response.json()
+        data = response.json()  # Parse the JSON response
+        print(data)  # Print the entire JSON response (for debugging)
         location_info = f"{data['city']}, {data['region']}, {data['country']}"
         return location_info
     except Exception as e:
