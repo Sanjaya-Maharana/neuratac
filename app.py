@@ -46,12 +46,11 @@ def send_email(receiver_email, subject, message):
 def get_location_info(ip):
     try:
         url = f"https://ipinfo.io/{ip}/json"
-        # response = requests.get(url)
-        # data = response.json()  # Parse the JSON response
-        # print(data)  # Print the entire JSON response (for debugging)
-        # location_info = f"{data['city']}, {data['region']}, {data['country']}"
-        # return location_info
-        return 'Location information not available'
+        response = requests.get(url)
+        data = response.json()  # Parse the JSON response
+        print(data)  # Print the entire JSON response (for debugging)
+        location_info = f"{data['city']}, {data['region']}, {data['country']}"
+        return location_info
     except Exception as e:
         print('Error fetching location:', str(e))
         return 'Location information not available'
@@ -132,14 +131,14 @@ def send_message():
         phno = request.form['phno']
         message = request.form['message']
 
-        # # Get the visitor's IP address
-        # visitor_ip = request.remote_addr
-        #
-        # # Get the visitor's location based on the IP address using ipinfo.io
-        # location_info = get_location_info(visitor_ip)
+        # Get the visitor's IP address
+        visitor_ip = request.remote_addr
+
+        # Get the visitor's location based on the IP address using ipinfo.io
+        location_info = get_location_info(visitor_ip)
 
         # Modify the email content as needed
-        email_content = f"Name: {name}\nEmail: {email}\nPhone Number: {phno}\nMessage: {message}"
+        email_content = f"Name: {name}\nEmail: {email}\nPhone Number: {phno}\nMessage: {message}\n\nVisitor IP: {visitor_ip}\nVisitor Location: {location_info}"
 
         receiver_email = 'SanjayaMaharana145@gmail.com'  # Change to your own email address
         subject = 'New Form Submission'
