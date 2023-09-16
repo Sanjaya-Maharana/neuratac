@@ -46,11 +46,12 @@ def send_email(receiver_email, subject, message):
 def get_location_info(ip):
     try:
         url = f"https://ipinfo.io/{ip}/json"
-        response = requests.get(url)
-        data = response.json()  # Parse the JSON response
-        print(data)  # Print the entire JSON response (for debugging)
-        location_info = f"{data['city']}, {data['region']}, {data['country']}"
-        return location_info
+        # response = requests.get(url)
+        # data = response.json()  # Parse the JSON response
+        # print(data)  # Print the entire JSON response (for debugging)
+        # location_info = f"{data['city']}, {data['region']}, {data['country']}"
+        # return location_info
+        return 'Location information not available'
     except Exception as e:
         print('Error fetching location:', str(e))
         return 'Location information not available'
