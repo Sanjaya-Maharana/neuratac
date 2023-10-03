@@ -7,7 +7,7 @@
     <h1>Subscriber List</h1>
     <ul>
         {% for subscriber in subscribers %}
-            <li>{{ subscriber.email }}</li>
+            <li>{{ subscriber }}</li>
         {% endfor %}
     </ul>
     <a href="{{ url_for('home') }}">Back to Home</a>

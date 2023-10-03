@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
 import os
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import requests
 from datetime import datetime
+import sqlite3
 
 app = Flask(__name__)
 app.config['STATIC_FOLDER'] = 'static'
@@ -16,35 +16,34 @@ smtp_port = 587
 sender_email = 'apirequest2000@gmail.com'
 sender_password = 'rcfyvrzrugdlfmup'
 
-# Configure the SQLite database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///myapp.db'
-db = SQLAlchemy(app)
+# Initialize SQLite database
+db_path = 'myapp.db'
 
-# Define a Subscriber model for the database
-class Subscriber(db.Model):
-    __tablename__ = 'subscriber'
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+def create_database():
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS subscriber (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT UNIQUE NOT NULL
+        )
+    ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS form_submission (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            email TEXT,
+            phno TEXT,
+            message TEXT,
+            visitor_ip TEXT,
+            location_info TEXT,
+            time_stamp TEXT
+        )
+    ''')
+    conn.commit()
+    conn.close()
 
-class FormSubmission(db.Model):
-    __tablename__ = 'form_submission'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(25))
-    email = db.Column(db.String(25))
-    phno = db.Column(db.String(15))
-    message = db.Column(db.Text)
-    visitor_ip = db.Column(db.String(45))
-    location_info = db.Column(db.String(50))
-    time_stamp = db.Column(db.String(25))
 
-    def __init__(self, name, email, phno, message, visitor_ip, location_info, time_stamp):
-        self.name = name
-        self.email = email
-        self.phno = phno
-        self.message = message
-        self.visitor_ip = visitor_ip
-        self.location_info = location_info
-        self.time_stamp = time_stamp
 
 def send_email(receiver_email, subject, message):
     msg = MIMEMultipart()
@@ -99,10 +98,17 @@ def contact():
 def subscribe():
     receiver_email = request.form.get('email')
 
-    if not Subscriber.query.filter_by(email=receiver_email).first():
-        new_subscriber = Subscriber(email=receiver_email)
-        db.session.add(new_subscriber)
-        db.session.commit()
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    # Check if the email is not already in the database
+    cursor.execute("SELECT * FROM subscriber WHERE email=?", (receiver_email,))
+    existing_email = cursor.fetchone()
+
+    if not existing_email:
+        cursor.execute("INSERT INTO subscriber (email) VALUES (?)", (receiver_email,))
+        conn.commit()
+        conn.close()
 
         email_content = '''Dear Subscriber,
 
@@ -135,12 +141,20 @@ def subscribe():
 
 @app.route("/subscribers")
 def subscriber_list():
-    subscribers = Subscriber.query.all()
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT email FROM subscriber")
+    subscribers = [row[0] for row in cursor.fetchall()]
+    conn.close()
     return render_template('subscribers.html', subscribers=subscribers)
 
 @app.route('/form_data')
 def form_data():
-    form_submissions = FormSubmission.query.all()
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM form_submission")
+    form_submissions = cursor.fetchall()
+    conn.close()
     return render_template('form_data.html', form_submissions=form_submissions)
 
 @app.route('/send_message', methods=['POST'])
@@ -153,18 +167,20 @@ def send_message():
 
         visitor_ip = request.remote_addr
         location_info = get_location_info(visitor_ip)
-        time_stamp = datetime.now()
+        time_stamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        form_submission = FormSubmission(name, email, phno, message, visitor_ip, location_info, time_stamp)
-        db.session.add(form_submission)
-        db.session.commit()
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO form_submission (name, email, phno, message, visitor_ip, location_info, time_stamp) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                       (name, email, phno, message, visitor_ip, location_info, time_stamp))
+        conn.commit()
+        conn.close()
 
         return render_template('contact.html', message="Form submitted and data saved to the database")
 
     return render_template('contact.html')
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
+    create_database()
     port = int(os.environ.get("PORT", 8000))
     app.run(debug=True, host='0.0.0.0', port=port)

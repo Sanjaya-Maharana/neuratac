@@ -10,6 +10,7 @@
     <table>
         <thead>
             <tr>
+                <th>SL.NO</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
@@ -21,13 +22,14 @@
         <tbody>
             {% for submission in form_submissions %}
                 <tr>
-                    <td>{{ submission.name }}</td>
-                    <td>{{ submission.email }}</td>
-                    <td>{{ submission.phno }}</td>
-                    <td>{{ submission.message }}</td>
-                    <td>{{ submission.visitor_ip }}</td>
-                    <td>{{ submission.location_info }}</td>
-                    <td>{{ submission.location_info }}</td>
+                    <td>{{ submission[0] }}</td>
+                    <td>{{ submission[1] }}</td>
+                    <td>{{ submission[2] }}</td>
+                    <td>{{ submission[3] }}</td>
+                    <td>{{ submission[4] }}</td>
+                    <td>{{ submission[5] }}</td>
+                    <td>{{ submission[6] }}</td>
+                    <td>{{ submission[7] }}</td>
                 </tr><br>
             {% endfor %}
         </tbody>
