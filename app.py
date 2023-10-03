@@ -22,10 +22,12 @@ db = SQLAlchemy(app)
 
 # Define a Subscriber model for the database
 class Subscriber(db.Model):
+    __tablename__ = 'subscriber'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
 
 class FormSubmission(db.Model):
+    __tablename__ = 'form_submission'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25))
     email = db.Column(db.String(25))
