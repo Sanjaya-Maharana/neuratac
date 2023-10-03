@@ -45,6 +45,10 @@ def create_database():
 
 
 
+create_database()
+
+
+
 def send_email(receiver_email, subject, message):
     msg = MIMEMultipart()
     msg['From'] = sender_email
