@@ -5,6 +5,9 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import requests
+from datetime import datetime
+
+
 
 app = Flask(__name__)
 app.config['STATIC_FOLDER'] = 'static'
@@ -23,6 +26,32 @@ db = SQLAlchemy(app)
 class Subscriber(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
+
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///form_submissions.db'  # Use SQLite as an example
+db = SQLAlchemy(app)
+
+class FormSubmission(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(25))
+    email = db.Column(db.String(25))
+    phno = db.Column(db.String(15))
+    message = db.Column(db.Text)
+    visitor_ip = db.Column(db.String(45))
+    location_info = db.Column(db.String(50))
+    time_stamp = db.Column(db.String(25))
+
+    def __init__(self, name, email, phno, message, visitor_ip, location_info, time_stamp):
+        self.name = name
+        self.email = email
+        self.phno = phno
+        self.message = message
+        self.visitor_ip = visitor_ip
+        self.location_info = location_info
+        self.time_stamp = time_stamp
+
 
 def send_email(receiver_email, subject, message):
     msg = MIMEMultipart()
@@ -122,6 +151,13 @@ def subscriber_list():
 
     return render_template('subscribers.html', subscribers=subscribers)
 
+@app.route('/form_data')
+def form_data():
+    # Fetch all form submissions from the database
+    form_submissions = FormSubmission.query.all()
+
+    return render_template('form_data.html', form_submissions=form_submissions)
+
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
@@ -137,17 +173,17 @@ def send_message():
         # Get the visitor's location based on the IP address using ipinfo.io
         location_info = get_location_info(visitor_ip)
 
-        # Modify the email content as needed
-        email_content = f"Name: {name}\nEmail: {email}\nPhone Number: {phno}\nMessage: {message}\n\nVisitor IP: {visitor_ip}\nVisitor Location: {location_info}"
+        # Generate a timestamp
+        time_stamp = datetime.now()
 
-        receiver_email = 'SanjayaMaharana145@gmail.com'  # Change to your own email address
-        subject = 'New Form Submission'
+        # Create a new FormSubmission object and save it to the database
+        form_submission = FormSubmission(name, email, phno, message, visitor_ip, location_info, time_stamp)
+        db.session.add(form_submission)
+        db.session.commit()
 
-        if send_email(receiver_email, subject, email_content):
-            message = "Email sent successfully"
-        else:
-            message = "Error sending email"
-        return render_template('contact.html', message=message)
+        return render_template('contact.html', message="Form submitted and data saved to the database")
+
+    return render_template('contact.html')
 
 
 if __name__ == '__main__':
