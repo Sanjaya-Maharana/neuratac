@@ -7,8 +7,6 @@ from email.mime.multipart import MIMEMultipart
 import requests
 from datetime import datetime
 
-
-
 app = Flask(__name__)
 app.config['STATIC_FOLDER'] = 'static'
 
@@ -19,19 +17,13 @@ sender_email = 'apirequest2000@gmail.com'
 sender_password = 'rcfyvrzrugdlfmup'
 
 # Configure the SQLite database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///subscribers.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///myapp.db'
 db = SQLAlchemy(app)
 
 # Define a Subscriber model for the database
 class Subscriber(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-
-from flask_sqlalchemy import SQLAlchemy
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///form_submissions.db'  # Use SQLite as an example
-db = SQLAlchemy(app)
 
 class FormSubmission(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -52,7 +44,6 @@ class FormSubmission(db.Model):
         self.location_info = location_info
         self.time_stamp = time_stamp
 
-
 def send_email(receiver_email, subject, message):
     msg = MIMEMultipart()
     msg['From'] = sender_email
@@ -71,19 +62,16 @@ def send_email(receiver_email, subject, message):
         print('Error sending email:', str(e))
         return False
 
-
 def get_location_info(ip):
     try:
         url = f"https://ipinfo.io/{ip}/json"
         response = requests.get(url)
-        data = response.json()  # Parse the JSON response
-        print(data)  # Print the entire JSON response (for debugging)
+        data = response.json()
         location_info = f"{data['city']}, {data['region']}, {data['country']}"
         return location_info
     except Exception as e:
         print('Error fetching location:', str(e))
         return 'Location information not available'
-
 
 @app.route("/")
 def home():
@@ -109,7 +97,6 @@ def contact():
 def subscribe():
     receiver_email = request.form.get('email')
 
-    # Check if the email is not already in the database
     if not Subscriber.query.filter_by(email=receiver_email).first():
         new_subscriber = Subscriber(email=receiver_email)
         db.session.add(new_subscriber)
@@ -146,18 +133,13 @@ def subscribe():
 
 @app.route("/subscribers")
 def subscriber_list():
-    # Retrieve the list of subscribers from the database
     subscribers = Subscriber.query.all()
-
     return render_template('subscribers.html', subscribers=subscribers)
 
 @app.route('/form_data')
 def form_data():
-    # Fetch all form submissions from the database
     form_submissions = FormSubmission.query.all()
-
     return render_template('form_data.html', form_submissions=form_submissions)
-
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
@@ -167,16 +149,10 @@ def send_message():
         phno = request.form['phno']
         message = request.form['message']
 
-        # Get the visitor's IP address
         visitor_ip = request.remote_addr
-
-        # Get the visitor's location based on the IP address using ipinfo.io
         location_info = get_location_info(visitor_ip)
-
-        # Generate a timestamp
         time_stamp = datetime.now()
 
-        # Create a new FormSubmission object and save it to the database
         form_submission = FormSubmission(name, email, phno, message, visitor_ip, location_info, time_stamp)
         db.session.add(form_submission)
         db.session.commit()
@@ -185,13 +161,8 @@ def send_message():
 
     return render_template('contact.html')
 
-
 if __name__ == '__main__':
     with app.app_context():
-        # Create the database tables
         db.create_all()
-    # Use the environment variable for the port if available, or fallback to 8000
     port = int(os.environ.get("PORT", 8000))
-    app.run(debug=True,host='0.0.0.0', port=port)
-
-
+    app.run(debug=True, host='0.0.0.0', port=port)
