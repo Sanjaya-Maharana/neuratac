@@ -169,14 +169,12 @@ def send_message():
         phno = request.form['phno']
         message = request.form['message']
 
-        visitor_ip = request.remote_addr
-        location_info = get_location_info(visitor_ip)
         time_stamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO form_submission (name, email, phno, message, visitor_ip, location_info, time_stamp) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                       (name, email, phno, message, visitor_ip, location_info, time_stamp))
+        cursor.execute("INSERT INTO form_submission (name, email, phno, message, time_stamp) VALUES (?, ?, ?, ?, ?)",
+                       (name, email, phno, message, time_stamp))
         conn.commit()
         conn.close()
 
