@@ -1,19 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
-import os
-# import smtplib
-# from email.mime.text import MIMEText
-# from email.mime.multipart import MIMEMultipart
-import requests
+from flask import Flask, render_template, request
 from datetime import datetime
 import sqlite3
 
 app = Flask(__name__)
 
-# Configure your email settings
-smtp_server = 'smtp.gmail.com'
-smtp_port = 587
-sender_email = 'apirequest2000@gmail.com'
-sender_password = 'rcfyvrzrugdlfmup'
 
 # Initialize SQLite database
 db_path = 'myapp.db'
@@ -43,39 +33,6 @@ def create_database():
     conn.close()
 
 
-
-create_database()
-
-
-
-# def send_email(receiver_email, subject, message):
-#     msg = MIMEMultipart()
-#     msg['From'] = sender_email
-#     msg['To'] = receiver_email
-#     msg['Subject'] = subject
-#     msg.attach(MIMEText(message, 'plain'))
-#
-#     try:
-#         server = smtplib.SMTP(smtp_server, smtp_port)
-#         server.starttls()
-#         server.login(sender_email, sender_password)
-#         server.sendmail(sender_email, receiver_email, msg.as_string())
-#         server.quit()
-#         return True
-#     except Exception as e:
-#         print('Error sending email:', str(e))
-#         return False
-
-# def get_location_info(ip):
-#     try:
-#         url = f"https://ipinfo.io/{ip}/json"
-#         response = requests.get(url)
-#         data = response.json()
-#         location_info = f"{data['city']}, {data['region']}, {data['country']}"
-#         return location_info
-#     except Exception as e:
-#         print('Error fetching location:', str(e))
-#         return 'Location information not available'
 
 @app.route("/")
 def home():
@@ -183,4 +140,5 @@ def send_message():
     return render_template('contact.html')
 
 if __name__ == '__main__':
+    create_database()
     app.run(host='0.0.0.0', debug=True)
