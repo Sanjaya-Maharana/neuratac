@@ -5,6 +5,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import requests
 from datetime import datetime
+import pytz
 import sqlite3
 
 app = Flask(__name__)
@@ -164,9 +165,9 @@ def send_message():
         email = request.form['email']
         phno = request.form['phno']
         message = request.form['message']
-
-        time_stamp = datetime.now()
-
+        utc_now = datetime.utcnow()
+        indian_tz = pytz.timezone('Asia/Kolkata')
+        time_stamp = utc_now.replace(tzinfo=pytz.utc).astimezone(indian_tz)
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         cursor.execute("INSERT INTO form_submission (name, email, phno, message, time_stamp) VALUES (?, ?, ?, ?, ?)",
