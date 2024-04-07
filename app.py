@@ -8,7 +8,6 @@ from datetime import datetime
 import sqlite3
 
 app = Flask(__name__)
-app.config['STATIC_FOLDER'] = 'static'
 
 # Configure your email settings
 smtp_server = 'smtp.gmail.com'
