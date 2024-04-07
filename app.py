@@ -165,7 +165,7 @@ def send_message():
         phno = request.form['phno']
         message = request.form['message']
 
-        time_stamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        time_stamp = datetime.now()
 
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
