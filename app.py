@@ -184,5 +184,4 @@ def send_message():
     return render_template('contact.html')
 
 if __name__ == '__main__':
-    create_database()
-    app.run(host='0.0.0.0', debug=True, use_reloader=True)
+    app.run(host='0.0.0.0', debug=True)
