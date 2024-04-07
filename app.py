@@ -42,11 +42,7 @@ def create_database():
     conn.commit()
     conn.close()
 
-
-
 create_database()
-
-
 
 def send_email(receiver_email, subject, message):
     msg = MIMEMultipart()
@@ -183,5 +179,4 @@ def send_message():
     return render_template('contact.html')
 
 if __name__ == '__main__':
-    create_database()
     app.run(debug=True, host='0.0.0.0')
