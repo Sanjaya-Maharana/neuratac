@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+# import smtplib
+# from email.mime.text import MIMEText
+# from email.mime.multipart import MIMEMultipart
 import requests
 from datetime import datetime
 import sqlite3
@@ -49,34 +49,34 @@ create_database()
 
 
 
-def send_email(receiver_email, subject, message):
-    msg = MIMEMultipart()
-    msg['From'] = sender_email
-    msg['To'] = receiver_email
-    msg['Subject'] = subject
-    msg.attach(MIMEText(message, 'plain'))
+# def send_email(receiver_email, subject, message):
+#     msg = MIMEMultipart()
+#     msg['From'] = sender_email
+#     msg['To'] = receiver_email
+#     msg['Subject'] = subject
+#     msg.attach(MIMEText(message, 'plain'))
+#
+#     try:
+#         server = smtplib.SMTP(smtp_server, smtp_port)
+#         server.starttls()
+#         server.login(sender_email, sender_password)
+#         server.sendmail(sender_email, receiver_email, msg.as_string())
+#         server.quit()
+#         return True
+#     except Exception as e:
+#         print('Error sending email:', str(e))
+#         return False
 
-    try:
-        server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()
-        server.login(sender_email, sender_password)
-        server.sendmail(sender_email, receiver_email, msg.as_string())
-        server.quit()
-        return True
-    except Exception as e:
-        print('Error sending email:', str(e))
-        return False
-
-def get_location_info(ip):
-    try:
-        url = f"https://ipinfo.io/{ip}/json"
-        response = requests.get(url)
-        data = response.json()
-        location_info = f"{data['city']}, {data['region']}, {data['country']}"
-        return location_info
-    except Exception as e:
-        print('Error fetching location:', str(e))
-        return 'Location information not available'
+# def get_location_info(ip):
+#     try:
+#         url = f"https://ipinfo.io/{ip}/json"
+#         response = requests.get(url)
+#         data = response.json()
+#         location_info = f"{data['city']}, {data['region']}, {data['country']}"
+#         return location_info
+#     except Exception as e:
+#         print('Error fetching location:', str(e))
+#         return 'Location information not available'
 
 @app.route("/")
 def home():
@@ -134,10 +134,11 @@ def subscribe():
         '''
         subject = 'Thank you for subscribing to our newsletter'
 
-        if send_email(receiver_email, subject, email_content):
-            message = "Subscribed successfully"
-        else:
-            message = "Error sending Subscription"
+        # if send_email(receiver_email, subject, email_content):
+        #     message = "Subscribed successfully"
+        # else:
+        #     message = "Error sending Subscription"
+        message = "Subscribed successfully"
     else:
         message = "Email already subscribed"
 
