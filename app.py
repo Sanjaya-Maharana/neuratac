@@ -94,6 +94,14 @@ def gallery():
 def contact():
     return render_template('contact.html')
 
+@app.route("/privacy_policy")
+def privacy_policy():
+    return render_template('privacy_policy.html')
+
+@app.route("/terms_of_use")
+def terms_of_use():
+    return render_template('terms_of_use.html')
+
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
     receiver_email = request.form.get('email')
