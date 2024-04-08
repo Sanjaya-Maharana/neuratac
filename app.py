@@ -101,6 +101,9 @@ def privacy_policy():
 @app.route("/terms_of_use")
 def terms_of_use():
     return render_template('terms_of_use.html')
+@app.route("/delete_account")
+def delete_account():
+    return render_template('delete_account.html')
 
 @app.route('/subscribe', methods=['POST'])
 def subscribe():
